@@ -4,6 +4,7 @@ import java.awt.image.*;
 import javax.swing.*;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -98,7 +99,11 @@ public class ImageViewer
     private void applyFilter(Filter filter)
     {
         if(currentImage != null) {
-            filter.apply(currentImage);
+            try {
+                filter.apply(currentImage);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             frame.repaint();
             showStatus("Applied: " + filter.getName());
         }
@@ -153,6 +158,12 @@ public class ImageViewer
         filterList.add(new DarkerFilter("Darker"));
         filterList.add(new LighterFilter("Lighter"));
         filterList.add(new ThresholdFilter("Threshold"));
+        filterList.add(new Grayscale("Grayscale"));
+        filterList.add(new MirrorFilter("Mirror"));
+        filterList.add(new FiltroInvertir("Invertir"));
+        filterList.add(new FiltroAlisar("Alisar"));
+        filterList.add(new FiltroSolarizar("Solarizar"));
+        filterList.add(new edgeFilter("Bordes"));
         
         return filterList;
     }

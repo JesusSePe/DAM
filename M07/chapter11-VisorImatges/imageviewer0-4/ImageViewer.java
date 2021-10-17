@@ -16,6 +16,12 @@ public class ImageViewer
     private JFrame frame;
     private ImagePanel imagePanel;
 
+    public JLabel status;
+
+    public void setStatus(String newStatus) {
+        this.status.setText(newStatus);
+    }
+
     /**
      * Create an ImageViewerFirst show it on screen.
      */
@@ -52,6 +58,8 @@ public class ImageViewer
      */
     private void makeFrame()
     {
+
+
         frame = new JFrame("ImageViewerFirst");
         makeMenuBar(frame);
         
@@ -66,7 +74,7 @@ public class ImageViewer
         imagePanel = new ImagePanel();
         contentPane.add(imagePanel);
 
-        JLabel status = new JLabel("Now with more b̶̟̝̺̪̺͖̖͉̹̊͊͑̃̃̆͒̔͛̚ủ̷̲̗̪̫͖̖͖͔̙̌̋́͆͂͑̂̄̌̾̏̈́̎͘̕͘g̵̣̲̝̖͖̜̖͌̉̀͂͌̀̓̄̀͑͂̀̕͜͠s̸̢̧̭͖̣͇͔̞̘̘̭̭̫̮̻͚̱͈̻̞͙̖̻̬̥̰̦̄̔̈́͋̇̐̈́͊̎̐̈͌̔ !");
+        status = new JLabel("Now with more b̶̟̝̺̪̺͖̖͉̹̊͊͑̃̃̆͒̔͛̚ủ̷̲̗̪̫͖̖͖͔̙̌̋́͆͂͑̂̄̌̾̏̈́̎͘̕͘g̵̣̲̝̖͖̜̖͌̉̀͂͌̀̓̄̀͑͂̀̕͜͠s̸̢̧̭͖̣͇͔̞̘̘̭̭̫̮̻͚̱͈̻̞͙̖̻̬̥̰̦̄̔̈́͋̇̐̈́͊̎̐̈͌̔ !");
         contentPane.add(status);
 
         /*imagePanel = new ImagePanel();
@@ -75,6 +83,7 @@ public class ImageViewer
         // building is done - arrange the components and show        
         frame.pack();
         frame.setVisible(true);
+
     }
     
     /**
@@ -83,9 +92,7 @@ public class ImageViewer
      */
     private void makeMenuBar(JFrame frame)
     {
-        final int SHORTCUT_MASK =
-            Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
-
+        final int SHORTCUT_MASK = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
 
         JMenuBar menubar = new JMenuBar();
         frame.setJMenuBar(menubar);
@@ -186,26 +193,38 @@ public class ImageViewer
             if(imagePanel != null){
                 //imagePanel.dark();
                 frame.repaint();
-                JLabel status = frame.
-                status("Everything, everything BLACK!");
+                setStatus("Everything, everything BLACK!");
             } else {
-
+                setStatus("Error 404: Image not found");
             }
-            System.out.println("Everything, everything BLACK!");
         }
     }
 
     private class aplicarClaro implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("HÁGASE LA LUZ!");
+            if(imagePanel != null){
+                //imagePanel.clear();
+                frame.repaint();
+                setStatus("HÁGASE LA LUZ!");
+            } else {
+                setStatus("Error 404: Image not found");
+            }
+            //System.out.println("HÁGASE LA LUZ!");
         }
     }
 
     private class aplicarUmbral implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Umbral aplicado");
+            if(imagePanel != null){
+                //imagePanel.umbral();
+                frame.repaint();
+                setStatus("Umbral aplicado");
+            } else {
+                setStatus("Error 404: Image not found");
+            }
+            //System.out.println("Umbral aplicado");
         }
     }
 }

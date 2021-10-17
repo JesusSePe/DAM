@@ -1,6 +1,5 @@
 import java.awt.*;
 import java.awt.image.*;
-import javax.swing.*;
 
 /**
  * OFImage is a class that defines an image in OF (Objects First) format.
@@ -61,6 +60,32 @@ public class OFImage extends BufferedImage
         for (int i = 0; i < height; i++){
             for (int x = 0; x < width; x++){
                 setPixel(x, i, getPixel(x, i).darker());
+            }
+        }
+    }
+
+    private void clear(){
+        int height = getHeight();
+        int width = getWidth();
+        for (int i = 0; i < height; i++){
+            for (int x = 0; x < width; x++){
+                setPixel(x, i, getPixel(x, i).brighter());
+            }
+        }
+    }
+
+    private void umbral(){
+        int height = getHeight();
+        int width = getWidth();
+        for (int i = 0; i < height; i++){
+            for (int x = 0; x < width; x++){
+                Color pixelColor = new Color(getRGB(x, i));
+                int red = pixelColor.getRed();
+                int green = pixelColor.getGreen();
+                int blue = pixelColor.getBlue();
+                Color newColor = new Color((red + green + blue)/3);
+
+                setPixel(x, i, newColor);
             }
         }
     }
