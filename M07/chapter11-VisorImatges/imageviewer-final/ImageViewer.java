@@ -6,6 +6,7 @@ import javax.swing.border.*;
 
 import java.io.File;
 
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -32,6 +33,7 @@ public class ImageViewer
     private JLabel statusLabel;
     private JButton smallerButton;
     private JButton largerButton;
+    private JButton reloadButton;
     private OFImage currentImage;
     
     private List<Filter> filters;
@@ -82,6 +84,14 @@ public class ImageViewer
      * Close function: close the current image.
      */
     private void close()
+    {
+        currentImage = null;
+        imagePanel.clearImage();
+        showFilename(null);
+        setButtonsEnabled(false);
+    }
+
+    private void rotate()
     {
         currentImage = null;
         imagePanel.clearImage();
@@ -195,7 +205,26 @@ public class ImageViewer
             frame.pack();
         }
     }
-    
+
+    private void reload(String path)
+    {
+        currentImage = ImageFileManager.loadImage(new File(String.valueOf(Paths.get(path))));
+
+        if(currentImage == null) {   // image file was not a valid image
+            JOptionPane.showMessageDialog(frame,
+                    "The file was not in a recognized image file format.",
+                    "Image Load Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        imagePanel.setImage(currentImage);
+        setButtonsEnabled(true);
+        showFilename(path);
+        showStatus("File reloaded.");
+        frame.pack();
+    }
+
     // ---- support methods ----
 
     /**
@@ -234,6 +263,7 @@ public class ImageViewer
     {
         smallerButton.setEnabled(status);
         largerButton.setEnabled(status);
+        reloadButton.setEnabled(status);
     }
     
     
@@ -302,6 +332,13 @@ public class ImageViewer
                                public void actionPerformed(ActionEvent e) { makeLarger(); }
                            });
         toolbar.add(largerButton);
+
+        reloadButton = new JButton("Reload");
+        reloadButton.addActionListener(new ActionListener() {
+            //public void actionPerformed(ActionEvent e) { makeLarger(); }
+            public void actionPerformed(ActionEvent e) { reload(filenameLabel.getText().split(": ")[1]); }
+        });
+        toolbar.add(reloadButton);
 
         // Add toolbar into panel with flow layout for spacing
         JPanel flow = new JPanel();
@@ -393,6 +430,28 @@ public class ImageViewer
             item.addActionListener(new ActionListener() {
                                public void actionPerformed(ActionEvent e) { showAbout(); }
                            });
+        menu.add(item);
+
+        // create adjust menu
+        menu = new JMenu("Adjust");
+        menubar.add(menu);
+
+        item = new JMenuItem("Rotate");
+        item.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) { rotate(); }
+        });
+        menu.add(item);
+
+        item = new JMenuItem("Make Larger");
+        item.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) { makeLarger(); }
+        });
+        menu.add(item);
+
+        item = new JMenuItem("Make Smaller");
+        item.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) { makeSmaller(); }
+        });
         menu.add(item);
 
     }
