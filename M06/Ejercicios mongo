@@ -1,0 +1,19 @@
+8.
+db.Restaurants.find({"grades.score": {$gt: 90}}).pretty();
+9.
+db.Restaurants.find({"grades.score": {$gt: 80,$lt: 100}}).pretty();
+10.
+???
+11.
+???
+12.
+???
+13.
+db.Restaurants.find({$and: [{"cuisine": {$not: /American/}, "grades.grade": 'A', "borough": {$not: /Brooklyn/}}]}, {"cuisine": 1, "grades": 1, "borough": 1}).sort({"cuisine": -1})
+
+14. 
+db.Restaurants.find({"name": /^Wil...*/}, {"restaurant_id":1, "name": 1, "borough": 1, "cuisine": 1, "_id": 0});
+15.
+db.Restaurants.find({"name": /Reg/}, {"restaurant_id":1, "name": 1, "borough": 1, "cuisine": 1, "_id": 0});
+16.
+

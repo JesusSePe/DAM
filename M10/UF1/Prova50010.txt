@@ -1,0 +1,60 @@
+OBJECT Codeunit 50010 Prova50010
+{
+  OBJECT-PROPERTIES
+  {
+    Date=15/12/20;
+    Time=12:44:28;
+    Modified=Yes;
+    Version List=;
+  }
+  PROPERTIES
+  {
+    OnRun=BEGIN
+
+            //Escriure constants
+            MESSAGE('%1',TRUE);
+            MESSAGE('%1\',FALSE);
+            MESSAGE('%1',123);
+            MESSAGE('%1',50.35);
+            MESSAGE('%1',100120D);
+            MESSAGE('%1',141230T);
+
+            //Prova amb IF
+            VariableInt1 := 1;
+
+            IF VariableInt1 = 1 THEN BEGIN
+              VariableInt1 += 1;
+            END
+            ELSE BEGIN
+              VariableInt1 -= 1;
+            END;
+
+            //MESSAGE('El valor de la variable Çs\' + '%1', VariableInt1);
+            MESSAGE('El valor de la variable Çs\' + FORMAT(VariableInt1));
+
+
+
+            //Prova amb CASE
+            CASE VariableInt1 OF
+              1:
+                MESSAGE('1');
+              2:
+                MESSAGE('2');
+              3:
+                MESSAGE('3');
+              ELSE
+                MESSAGE('NO êS EL VALOR ESPERAT')
+            END;
+          END;
+
+  }
+  CODE
+  {
+    VAR
+      VariableInt1@1106000000 : Integer;
+
+    BEGIN
+    END.
+  }
+}
+

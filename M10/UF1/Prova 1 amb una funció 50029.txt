@@ -1,0 +1,33 @@
+OBJECT Codeunit 50029 Prova1 amb una funci¢
+{
+  OBJECT-PROPERTIES
+  {
+    Date=24/01/20;
+    Time=19:14:58;
+    Modified=Yes;
+    Version List=;
+  }
+  PROPERTIES
+  {
+    OnRun=BEGIN
+            //Aquesta ‚s una prova de cridar una funci¢
+            ValorFinal := SumadeNumeros(40,50);
+            MESSAGE ('El valor de la suma ‚s %1',ValorFinal);
+          END;
+
+  }
+  CODE
+  {
+    VAR
+      ValorFinal@1106000000 : Integer;
+
+    LOCAL PROCEDURE SumadeNumeros@1106000000(a@1106000000 : Integer;b@1106000001 : Integer) Suma : Integer;
+    BEGIN
+      Suma := a + b;
+    END;
+
+    BEGIN
+    END.
+  }
+}
+

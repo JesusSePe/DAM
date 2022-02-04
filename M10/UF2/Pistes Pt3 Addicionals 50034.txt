@@ -1,0 +1,82 @@
+OBJECT Codeunit 50034 Pistes Pt03_Addicionals
+{
+  OBJECT-PROPERTIES
+  {
+    Date=22/01/21;
+    Time=12:44:06;
+    Modified=Yes;
+    Version List=;
+  }
+  PROPERTIES
+  {
+    OnRun=BEGIN
+
+
+            //Anem a fer un petit men£ per decidir diferents opcions i despr‚s cridem una funci¢ diferent per cada cas
+
+            CR := 13; // Carriage Return - (Hex $0D)
+            LF := 10; // Line Feed - (Hex $0A)
+
+            Menu := Window.InputBox('1: Recollir Nom i cognoms'+FORMAT(CR)+FORMAT(LF)+
+                                    '2: Recollir DNI'+FORMAT(CR)+FORMAT(LF)+
+                                    '3: Calcula el doble', 'Men£ Opcions', 'Introdueix 1,2 o 3', 100, 100);
+            CASE Menu OF
+              '1':
+                BEGIN
+                  NomCognoms();
+                END;
+              '2':
+                BEGIN
+                  DNI();
+                END;
+              '3':
+                BEGIN
+                  EVALUATE(numero,Window.InputBox('Introdueix un nombre enter:', 'Calcula el doble', '', 100, 100));
+                  Window.MsgBox('Resultat :'+ FORMAT(Doble(numero)),0,'Funci¢ Doble');
+                END;
+            END;
+          END;
+
+  }
+  CODE
+  {
+    VAR
+      Window@1106000006 : DotNet "'Microsoft.VisualBasic, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a'.Microsoft.VisualBasic.Interaction" RUNONCLIENT;
+      Menu@1106000005 : Text;
+      CR@1106000008 : Char;
+      LF@1106000009 : Char;
+      numero@1106000000 : Integer;
+
+    LOCAL PROCEDURE NomCognoms@1106000000();
+    VAR
+      CadenaText@1106000000 : ARRAY [2] OF Text;
+    BEGIN
+      CadenaText[1] := Window.InputBox('Nom', 'Funci¢ NomCognoms', 'Introdueix el nom', 100, 100);
+      CadenaText[2] := Window.InputBox('Cognom', 'Funci¢ NomCognoms', 'Introdueix els cognoms', 100, 100);
+      Window.MsgBox('Nom i Cognoms: '+CadenaText[1]+' '+CadenaText[2],0,'Funci¢ NomCognoms');
+    END;
+
+    LOCAL PROCEDURE DNI@1106000002();
+    VAR
+      DNITotal@1106000000 : Text;
+      DNIDigit@1106000001 : Text;
+      DNILletra@1106000002 : Text;
+    BEGIN
+      DNITotal := Window.InputBox('DNI', 'Funci¢ DNI', 'Introdueix el DNI (8 d¡gits i la lletra)', 100, 100);
+      DNIDigit := COPYSTR(DNITotal,1,8);
+      DNILletra := COPYSTR(DNITotal,9,1);
+      Window.MsgBox('DNI: '+DNITotal+FORMAT(CR)+FORMAT(LF)+
+                    '8 d¡gits s¢n: '+DNIDigit+FORMAT(CR)+FORMAT(LF)+
+                    'Lletra del DNI ‚s: '+DNILletra ,0,'Funci¢ DNI');
+    END;
+
+    LOCAL PROCEDURE Doble@1106000006(n@1106000000 : Integer) Resultat : Integer;
+    BEGIN
+      Resultat := 2*n;
+    END;
+
+    BEGIN
+    END.
+  }
+}
+

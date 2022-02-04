@@ -1,0 +1,39 @@
+OBJECT Codeunit 50030 Prova 2 amb una funci¢
+{
+  OBJECT-PROPERTIES
+  {
+    Date=17/01/20;
+    Time=20:29:07;
+    Modified=Yes;
+    Version List=;
+  }
+  PROPERTIES
+  {
+    OnRun=BEGIN
+            //Aquesta ‚s una prova de cridar una funci¢
+
+            EVALUATE(PrimerNo,Window.InputBox('Input del primer N£mero', 'INPUT', 'Escriviu el 1r n£mero de la suma', 100, 100));
+            EVALUATE(SegonNo,Window.InputBox('Input del segon N£mero', 'INPUT', 'Escriviu el 2n n£mero de la suma', 100, 100));
+            ValorFinal := SumadeNumeros(PrimerNo,SegonNo);
+            MESSAGE('El valor de la suma ‚s: %1 ',ValorFinal);
+          END;
+
+  }
+  CODE
+  {
+    VAR
+      ValorFinal@1106000000 : Integer;
+      PrimerNo@1106000001 : Integer;
+      SegonNo@1106000002 : Integer;
+      Window@1106000003 : DotNet "'Microsoft.VisualBasic, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a'.Microsoft.VisualBasic.Interaction" RUNONCLIENT;
+
+    LOCAL PROCEDURE SumadeNumeros@1106000000(a@1106000000 : Integer;b@1106000001 : Integer) Suma : Integer;
+    BEGIN
+      Suma := a + b;
+    END;
+
+    BEGIN
+    END.
+  }
+}
+

@@ -1,0 +1,62 @@
+OBJECT Codeunit 50031 UF2_NF1_EA1_ExIni_50031_Serran
+{
+  OBJECT-PROPERTIES
+  {
+    Date=19/12/21;
+    Time=12:29:06;
+    Modified=Yes;
+    Version List=;
+  }
+  PROPERTIES
+  {
+    OnRun=BEGIN
+            // Sumar +3 a la secuencia.
+            // Declarar una variable de control
+            Cur_val := 2;
+
+            // Mostrar un missatge informant del que farem
+            MESSAGE('Suma de progressi¢ aritmätica 2, 5, 8, 11, fins a n=20');
+
+            // Iniciar el for loop
+            FOR Count := 1 TO 20 DO
+            BEGIN
+              // Mostrar el estado de las variables antes de operar
+              MESSAGE('El n£mero de la särie que ocupa la posici¢ %1 Çs %2', Count, Cur_val);
+              // Incrementar en +3
+              Cur_val := Cur_val + 3;
+              // Mostrar el estado de las variables tras operar.
+              MESSAGE('La suma del %1 primers nombres de la särie Çs %2', Count, Cur_val);
+
+              // Mostrar un missatge a la meitat del procÇs.
+              IF Count = 10 THEN
+              BEGIN
+                MESSAGE('Estem a la meitat de n£meros sumats');
+              END;
+
+            END;
+            // Mostrar un missatge en acabar.
+            MESSAGE('La suma total Çs %1', Cur_val);
+            // Mostrar un missatge depenent del valor final.
+            CASE Cur_val OF
+              2..99:
+                MESSAGE('El valor total Çs inferior a 100, concretament %1', Cur_val);
+              100..499:
+                MESSAGE('El valor total Çs superior o igual a 100, perï inferior a 500, concretament %1', Cur_val);
+              ELSE
+                MESSAGE('El valor total Çs superior o igual a 500, concretament %1', Cur_val);
+            END;
+          END;
+
+  }
+  CODE
+  {
+    VAR
+      Window@1106000003 : DotNet "'Microsoft.VisualBasic, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a'.Microsoft.VisualBasic.Interaction" RUNONCLIENT;
+      Cur_val@1106000004 : Integer;
+      Count@1106000005 : Integer;
+
+    BEGIN
+    END.
+  }
+}
+

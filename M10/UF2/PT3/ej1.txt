@@ -1,0 +1,77 @@
+OBJECT Codeunit 50001 Practica3_ej1
+{
+  OBJECT-PROPERTIES
+  {
+    Date=21/01/22;
+    Time=19:34:57;
+    Modified=Yes;
+    Version List=;
+  }
+  PROPERTIES
+  {
+    OnRun=BEGIN
+              // Declare variables
+              EVALUATE(Original, Window.InputBox('Introdueix un n£mero a convertir:','Conversi¢', '1', 100, 100));
+              Binary := 0;
+              Octal := 0;
+              Hex := '';
+              i := 1;
+
+              // Start by getting the Binary conversion
+              Temp := Original;
+              i := 1;
+              WHILE Temp <> 0 DO BEGIN
+                Module := Temp MOD 2;
+                Temp := Temp DIV 2;
+                Binary += Module * i;
+                i := i * 10;
+              END;
+
+              // Now, let's go with Octal system. Quite similar to Binary. Actually the same.
+              Temp := Original;
+              i := 1;
+              WHILE Temp <> 0 DO BEGIN
+                Module := Temp MOD 8;
+                Temp := Temp DIV 8;
+                Octal += Module * i;
+                i := i * 10;
+              END;
+
+              // Finally, let's go with Hexadecimal. Similar to the other ones. Now, the trick here is that for numbers from 10 to 15, we use letters from A to F, and we write backwards.
+              Temp := Original;
+              WHILE Temp <> 0 DO BEGIN
+                Module := Temp MOD 16;
+                Temp := Temp DIV 16;
+                CASE Module OF
+                  10: Hex := 'A' + Hex;
+                  11: Hex := 'B' + Hex;
+                  12: Hex := 'C' + Hex;
+                  13: Hex := 'D' + Hex;
+                  14: Hex := 'E' + Hex;
+                  15: Hex := 'F' + Hex;
+                  ELSE Hex := FORMAT(Module) + Hex;
+                END;
+              END;
+
+              // Now we're ready to show results:
+              MESSAGE('RESULTATS:\Binari: %1\Octal: %2\Hexadecimal: %3', Binary, Octal, Hex);
+          END;
+
+  }
+  CODE
+  {
+    VAR
+      Original@1106000000 : Integer;
+      Binary@1106000001 : Integer;
+      Octal@1106000002 : Integer;
+      Hex@1106000003 : Text;
+      i@1106000004 : Integer;
+      Window@1106000005 : DotNet "'Microsoft.VisualBasic, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a'.Microsoft.VisualBasic.Interaction" RUNONCLIENT;
+      Temp@1106000006 : Integer;
+      Module@1106000007 : Integer;
+
+    BEGIN
+    END.
+  }
+}
+

@@ -1,0 +1,33 @@
+OBJECT Codeunit 50032 UF2_NF1_EA1_ExIni_50032_Serran
+{
+  OBJECT-PROPERTIES
+  {
+    Date=19/12/21;
+    Time=13:03:56;
+    Modified=Yes;
+    Version List=;
+  }
+  PROPERTIES
+  {
+    OnRun=BEGIN
+            Potencia := 0;
+            REPEAT
+              MESSAGE('2 elevat a %1 ‚s %2', Potencia, POWER(2, Potencia));
+              Potencia := Potencia + 1;
+            UNTIL POWER(2, Potencia+1) >= 100000;
+
+            MESSAGE('El exponent que ens dona un valor per sota de 100000 ‚s %1', Potencia);
+          END;
+
+  }
+  CODE
+  {
+    VAR
+      Window@1106000000 : DotNet "'Microsoft.VisualBasic, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a'.Microsoft.VisualBasic.Interaction" RUNONCLIENT;
+      Potencia@1106000001 : Integer;
+
+    BEGIN
+    END.
+  }
+}
+

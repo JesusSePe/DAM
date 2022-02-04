@@ -1,0 +1,43 @@
+OBJECT Codeunit 50004 Practica3_ej4
+{
+  OBJECT-PROPERTIES
+  {
+    Date=23/01/22;
+    Time=16:58:02;
+    Modified=Yes;
+    Version List=;
+  }
+  PROPERTIES
+  {
+    OnRun=BEGIN
+              EVALUATE(Original, Window.InputBox('Introdueix un n£mero per calculúlar si es primer:','Conversi¢', '1', 100, 100));
+              Prime := TRUE;
+
+              // 0 and 1 are not prime numbers
+              IF FORMAT(Original) IN ['0', '1'] THEN
+                  Prime := FALSE
+              ELSE BEGIN
+                //FOR <Control Variable> := <Start Number> TO <End Number> DO
+                  //<Statement>
+                  FOR Temp := 2 TO (Original DIV 2) DO
+                      IF Original MOD Temp = 0 THEN
+                          Prime := FALSE
+              END;
+
+              IF Prime = TRUE THEN MESSAGE('%1 es primer', Original) ELSE MESSAGE('%1 no es primer', Original);
+          END;
+
+  }
+  CODE
+  {
+    VAR
+      Original@1106000003 : Integer;
+      Prime@1106000002 : Boolean;
+      Temp@1106000001 : Integer;
+      Window@1106000000 : DotNet "'Microsoft.VisualBasic, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a'.Microsoft.VisualBasic.Interaction" RUNONCLIENT;
+
+    BEGIN
+    END.
+  }
+}
+

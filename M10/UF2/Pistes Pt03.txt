@@ -1,0 +1,88 @@
+OBJECT Codeunit 50033 Pistes Pt03
+{
+  OBJECT-PROPERTIES
+  {
+    Date=27/01/20;
+    Time=15:53:41;
+    Modified=Yes;
+    Version List=;
+  }
+  PROPERTIES
+  {
+    OnRun=BEGIN
+            Dividendo := 101;
+            Divisor := 50;
+
+            Cociente := Dividendo DIV Divisor;
+            Resto := Dividendo MOD Divisor;
+
+            Cadena[1] := FORMAT(Dividendo);
+            Cadena[2] := FORMAT(Divisor);
+            Cadena[3] := FORMAT(Cociente);
+            Cadena[4] := FORMAT(Resto);
+
+            MESSAGE('Missatge1:\Dividendo es %1\Divisor es %2\Cociente es %3\Resto es %4.',Dividendo,Divisor,Cociente,Resto);
+            MESSAGE('Missatge2:\Dividendo es %1\Divisor es %2\Cociente es %3\Resto es %4.',Cadena[1],Cadena[2],Cadena[3],Cadena[4]);
+
+            //Anem a fer un petit men£ per decidir opci¢ 1: Divisi¢ amb quocient enter, opci¢ 2: Divisi¢ amb decimals
+
+            CR := 13; // Carriage Return - (Hex $0D)
+            LF := 10; // Line Feed - (Hex $0A)
+
+            Menu := Window.InputBox('1: Divisi¢ amb quocient enter'+ FORMAT(CR)+FORMAT(LF)+'2: Divisi¢ amb decimals', 'Menu Divisi¢', 'Introdueix 1 o 2', 100, 100);
+
+            //En els 2 casos obrim finestra per a recollir els valors del dividend i despr‚s del divisor
+            EVALUATE(CadenaInt[1],Window.InputBox('Introdueix el dividend', 'Divisi¢', 'Introdueix dividend', 100, 100));
+            EVALUATE(CadenaInt[2],Window.InputBox('Introdueix el divisor', 'Divisi¢', 'Introdueix divisor', 100, 100));
+
+            Dividendo := CadenaInt[1];
+            Divisor := CadenaInt[2];
+            Cociente := 0;
+            Resto := 0;
+
+            CASE Menu OF
+              '1':
+                BEGIN
+                  Cociente := Dividendo DIV Divisor;
+                  Resto := Dividendo MOD Divisor;
+                  MESSAGE('Opci¢ 1-Divisi¢ amb quocient enter:\Dividendo es %1\Divisor es %2\Cociente es %3\Resto es %4.',Dividendo,Divisor,Cociente,Resto);
+                END;
+              '2':
+                BEGIN
+                  CocienteDecimal := Dividendo / Divisor;
+                  MESSAGE('Opci¢ 2-Divisi¢ amb decimals:\Dividendo es %1\Divisor es %2\Cociente es %3.',Dividendo,Divisor,CocienteDecimal);
+                END;
+            END;
+
+            //Evaluem els valor d'un string segons la posici¢
+
+            TextIntro := Window.InputBox('Introdueix 3 nombres seguits amb un sol digit', 'Introduir cadena de 3 nombres', ' ', 100, 100);
+            Cadena[1] := COPYSTR(TextIntro,1,1);
+            Cadena[2] := COPYSTR(TextIntro,2,1);
+            Cadena[3] := COPYSTR(TextIntro,3,1);
+            MESSAGE('Els 3 nombres seleccionats s¢n:\El primer ‚s %1\El segon ‚s %2\El tercer ‚s %3',Cadena[1],Cadena[2],Cadena[3]);
+
+          END;
+
+  }
+  CODE
+  {
+    VAR
+      Dividendo@1106000000 : Integer;
+      Divisor@1106000001 : Integer;
+      Cociente@1106000002 : Integer;
+      Resto@1106000003 : Integer;
+      Cadena@1106000004 : ARRAY [4] OF Text;
+      Window@1106000006 : DotNet "'Microsoft.VisualBasic, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a'.Microsoft.VisualBasic.Interaction" RUNONCLIENT;
+      Menu@1106000005 : Text;
+      CocienteDecimal@1106000007 : Decimal;
+      CR@1106000008 : Char;
+      LF@1106000009 : Char;
+      CadenaInt@1106000010 : ARRAY [2] OF Integer;
+      TextIntro@1106000011 : Text;
+
+    BEGIN
+    END.
+  }
+}
+

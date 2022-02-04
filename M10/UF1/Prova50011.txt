@@ -1,0 +1,62 @@
+OBJECT Codeunit 50011 Prova50011
+{
+  OBJECT-PROPERTIES
+  {
+    Date=15/12/20;
+    Time=12:48:39;
+    Modified=Yes;
+    Version List=;
+  }
+  PROPERTIES
+  {
+    OnRun=BEGIN
+            //Prova amb FOR
+            X := 1;
+            Y := 1;
+            VariableInt1 := 0;
+
+            FOR X :=1 TO 5 DO
+            BEGIN
+              Y := Y+X;
+              VariableInt1 := VariableInt1-X;
+            END;
+
+            MESSAGE('El valor de la variable  Y ‚s\' + FORMAT(Y) + '\El valor de la variable  VariableInt ‚s\' + FORMAT(VariableInt1));
+
+            //Prova amb WHILE
+            X := 0;
+            Y := 0;
+            VariableInt1 := 0;
+
+            WHILE X<10 DO
+            BEGIN
+            X +=1;
+            MESSAGE('El valor de la variable  X ‚s ' + FORMAT(X));
+            END;
+
+            //Prova amb REPEAT
+            X := 0;
+            Y := 10;
+
+            IF X < Y THEN BEGIN
+              REPEAT
+              X := X + 1;
+              Y := Y - 1;
+              MESSAGE('El valor de la variable  X ‚s ' + FORMAT(X) + '\El valor de la variable Y ‚s ' + FORMAT(Y));
+              UNTIL X = Y;
+            END;
+          END;
+
+  }
+  CODE
+  {
+    VAR
+      VariableInt1@1106000000 : Integer;
+      X@1106000001 : Integer;
+      Y@1106000002 : Integer;
+
+    BEGIN
+    END.
+  }
+}
+

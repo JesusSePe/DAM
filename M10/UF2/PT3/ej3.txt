@@ -1,0 +1,34 @@
+OBJECT Codeunit 50003 Practica3_ej3
+{
+  OBJECT-PROPERTIES
+  {
+    Date=23/01/22;
+    Time=11:50:20;
+    Modified=Yes;
+    Version List=;
+  }
+  PROPERTIES
+  {
+    OnRun=BEGIN
+              MESSAGE('Fibonacci(%1) = %2', 15, Fibonacci(15));
+          END;
+
+  }
+  CODE
+  {
+    VAR
+      Window@1106000000 : DotNet "'Microsoft.VisualBasic, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a'.Microsoft.VisualBasic.Interaction" RUNONCLIENT;
+
+    LOCAL PROCEDURE Fibonacci@1106000001(i@1106000000 : Integer) : Integer;
+    BEGIN
+      IF (i <= 2) THEN
+        EXIT(1);
+
+      EXIT ( Fibonacci(i-1) + Fibonacci(i-2) );
+    END;
+
+    BEGIN
+    END.
+  }
+}
+

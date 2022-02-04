@@ -1,0 +1,23 @@
+OBJECT Codeunit 50005 Practica3_ej5
+{
+  OBJECT-PROPERTIES
+  {
+    Date=23/01/22;
+    Time=18:03:44;
+    Modified=Yes;
+    Version List=;
+  }
+  PROPERTIES
+  {
+    OnRun=BEGIN
+          END;
+
+  }
+  CODE
+  {
+
+    BEGIN
+    END.
+  }
+}
+
